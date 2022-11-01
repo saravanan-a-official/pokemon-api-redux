@@ -1,6 +1,6 @@
 import React from "react";
 import * as CommonConstants from "../common/commonConstants";
-import Pagination from "react-js-pagination";
+import { Pagination } from "react-bootstrap";
 
 class PokemonListPagination extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class PokemonListPagination extends React.Component {
 
   componentDidMount() {
     this.setState({
-      pageData: filterDataForPagination(
+      pageData: this.filterDataForPagination(
         this.props.pokeFigureData,
         this.state.activePageNum
       ),
@@ -21,46 +21,66 @@ class PokemonListPagination extends React.Component {
   }
 
   handlePageChange = (pageNum) => {
+    let newPageData = this.filterDataForPagination(
+      this.props.pokeFigureData,
+      pageNum
+    );
     this.setState({
-      pageData: filterDataForPagination(
-        this.props.pokeFigureData,
-        this.state.activePageNum
-      ),
+      pageData: newPageData,
       activePageNum: pageNum,
     });
   };
-  render() {
-    return (
-      <>
-        {this.state.pageData}
-        <Pagination
-          totalItemsCount={this.props.pokeFigureData.length}
-          onChange={this.handlePageChange}
-          activePage={this.state.activePageNum}
-          itemsCounterPerPage={CommonConstants.MAX_ITEMS_PER_PAGE}
-          pageRangeDisplayed={this.props.pokeFigureData.length / 3}
-        ></Pagination>
-      </>
-    );
-  }
-}
-function filterDataForPagination(
-  pokeFigData,
-  startPage = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM
-) {
-  let paginatedItems = [];
-  for (
-    let item =
+
+  filterDataForPagination = (
+    pokeFigData,
+    startPage = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM
+  ) => {
+    const sliceStartIndex =
       (+startPage - CommonConstants.DEFAULT_ACTIVE_PAGE_NUM) *
         CommonConstants.MAX_ITEMS_PER_PAGE +
       CommonConstants.DEFAULT_ACTIVE_PAGE_NUM;
-    item <=
-    (+startPage - CommonConstants.DEFAULT_ACTIVE_PAGE_NUM) *
+    const sliceEndIndex =
+      (+startPage - CommonConstants.DEFAULT_ACTIVE_PAGE_NUM) *
+        CommonConstants.MAX_ITEMS_PER_PAGE +
       CommonConstants.MAX_ITEMS_PER_PAGE +
-      CommonConstants.MAX_ITEMS_PER_PAGE;
-    ++item
-  )
-    paginatedItems.push(pokeFigData[item]);
-  return paginatedItems;
+      1;
+
+    let paginatedItems = pokeFigData.slice(sliceStartIndex, sliceEndIndex - 1);
+
+    return paginatedItems;
+  };
+  formPagintionItems = (pokeFigureData) => {
+    let paginationItems = [];
+    pokeFigureData.forEach((pokeFigureDatum, idx) => {
+      if (idx % CommonConstants.MAX_ITEMS_PER_PAGE === 0) {
+        paginationItems.push(
+          <Pagination.Item
+            key={idx}
+            active={
+              +idx / CommonConstants.MAX_ITEMS_PER_PAGE ===
+              this.state.activePageNum
+            }
+            onClick={() =>
+              this.handlePageChange(+idx / CommonConstants.MAX_ITEMS_PER_PAGE)
+            }
+          >
+            {+idx / CommonConstants.MAX_ITEMS_PER_PAGE + 1}
+          </Pagination.Item>
+        );
+      }
+    });
+    return paginationItems;
+  };
+  render() {
+    return (
+      <div className="App">
+        {this.state.pageData}
+        <Pagination>
+          {this.formPagintionItems(this.props.pokeFigureData)}
+        </Pagination>
+      </div>
+    );
+  }
 }
+
 export default PokemonListPagination;
