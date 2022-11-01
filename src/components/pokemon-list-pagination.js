@@ -73,11 +73,11 @@ class PokemonListPagination extends React.Component {
   };
   render() {
     return (
-      <div className="App">
-        {this.state.pageData}
+      <div className="sticky">
         <Pagination>
           {this.formPagintionItems(this.props.pokeFigureData)}
         </Pagination>
+        {this.state.pageData}
       </div>
     );
   }
