@@ -1,4 +1,5 @@
 import * as CommonConstants from "../../common/commonConstants";
-export function formOnSubmit(formData) {
-  return { type: CommonConstants.SUBMIT_ACTION, payload: formData };
+export function getPokeDataOk(pokeData) {
+  console.log("Inside action getPokeDataOk");
+  return { type: CommonConstants.LOAD_POKE_DETAILS, pokeData };
 }
