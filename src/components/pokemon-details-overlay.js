@@ -10,42 +10,44 @@ function capitalizeFirstLetter(word) {
 function PokemonDetailsOverlay(props) {
   return (
     <OverlayTrigger
-      key={this.props.id}
+      key={props.id}
       placement="right"
       delay={{ show: 250, hide: 400 }}
       overlay={
-        <Card style={{ width: "10rem" }} key={this.props.id}>
+        <Card style={{ width: "10rem" }} key={props.id}>
           <Card.Img
             variant="top"
             src={
               CommonConstants.POKE_IMG_URL +
-              (+this.props.id + 1) +
+              (+props.id + 1) +
               CommonConstants.POKE_IMG_EXT
             }
           />
           <Card.Body>
             <Card.Title>
-              {capitalizeFirstLetter(this.props.pokeData.name)}
+              {capitalizeFirstLetter(props.pokedata.name)}
             </Card.Title>
             {/*  <Card.Text>This is a Pokemon</Card.Text> */}
-            <Button variant="primary">More Details</Button>
+            <Button variant="primary">
+              {CommonConstants.MORE_DETAILS_BTN}
+            </Button>
           </Card.Body>
         </Card>
       }
     >
-      <Figure key={this.props.id}>
+      <Figure key={props.id}>
         <Figure.Image
           width={CommonConstants.POKE_IMG_SIZE}
           height={CommonConstants.POKE_IMG_SIZE}
-          alt={this.props.pokeData.name}
+          alt={props.pokedata.name}
           src={
             CommonConstants.POKE_IMG_URL +
-            (+this.props.id + 1) +
+            (+props.id + 1) +
             CommonConstants.POKE_IMG_EXT
           }
         />
         <Figure.Caption>
-          {capitalizeFirstLetter(this.props.pokeData.name)}
+          {capitalizeFirstLetter(props.pokedata.name)}
         </Figure.Caption>
       </Figure>
     </OverlayTrigger>

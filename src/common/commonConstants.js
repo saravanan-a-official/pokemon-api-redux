@@ -9,4 +9,5 @@ export const MAX_ITEMS_PER_PAGE = 100;
 export const POKE_IMG_URL_2 = ".png";
 export const LOAD_POKE_DETAILS = "LOAD_POKE_DETAILS";
 export const GET_POKE_DATA_OK = "GET_POKE_DATA_OK";
+export const MORE_DETAILS_BTN = "More Details";
 export const INITIAL_STATE = {};

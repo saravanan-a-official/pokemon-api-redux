@@ -8,7 +8,7 @@ function iteratePokemonData(pokemonListData) {
   return pokemonListData.action.payload.map((pokeData, id) => {
     return (
       <>
-        <PokemonDetailsOverlay pokeData={pokeData} id={id} />
+        <PokemonDetailsOverlay pokedata={pokeData} id={id} />
       </>
     );
   });
