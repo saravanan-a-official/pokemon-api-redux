@@ -5,13 +5,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as CommonConstants from "../common/commonConstants";
 
 //To capitalize Pokemon name's first letter
-function capitalizeFirstLetter(word) {
-  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-}
 
 function PokemonDetailsOverlay(props) {
   const triggerDispatch = (event) => {
-    window.sessionStorage.setItem("pokeId", 6);
+    //console.log("event passed :" + event);
+    window.sessionStorage.setItem("pokeId", +event + 1);
   };
   return (
     <OverlayTrigger
@@ -30,7 +28,7 @@ function PokemonDetailsOverlay(props) {
           />
           <Card.Body>
             <Card.Title>
-              {capitalizeFirstLetter(props.pokedata.name)}
+              {CommonConstants.capitalizeFirstLetter(props.pokedata.name)}
             </Card.Title>
             {/*  <Card.Text>This is a Pokemon</Card.Text> 
             <Button variant="primary">
@@ -40,7 +38,7 @@ function PokemonDetailsOverlay(props) {
         </Card>
       }
     >
-      <Link to="/pokemonDetails/" onClick={triggerDispatch}>
+      <Link to="/pokemonDetails/" onClick={() => triggerDispatch(props.id)}>
         <Figure key={props.id}>
           <Figure.Image
             width={CommonConstants.POKE_IMG_SIZE}
@@ -53,7 +51,7 @@ function PokemonDetailsOverlay(props) {
             }
           />
           <Figure.Caption>
-            {capitalizeFirstLetter(props.pokedata.name)}
+            {CommonConstants.capitalizeFirstLetter(props.pokedata.name)}
           </Figure.Caption>
         </Figure>
       </Link>

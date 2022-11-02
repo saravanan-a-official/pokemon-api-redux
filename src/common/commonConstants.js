@@ -13,3 +13,6 @@ export const GET_ALL_POKE_DATA_OK = "GET_ALL_POKE_DATA_OK";
 export const GET_SINGLE_POKE_DATA_OK = "GET_SINGLE_POKE_DATA_OK";
 export const MORE_DETAILS_BTN = "More Details";
 export const INITIAL_STATE = {};
+export function capitalizeFirstLetter(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}

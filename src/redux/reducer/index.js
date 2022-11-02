@@ -6,6 +6,7 @@ const reducer = (
   state = initialState,
   action = { type: CommonConstants.LOAD_ALL_POKE_DETAILS, pokeData: {} }
 ) => {
+  //console.log(state);
   switch (action.type) {
     case CommonConstants.LOAD_ALL_POKE_DETAILS:
       return { ...state, action };
