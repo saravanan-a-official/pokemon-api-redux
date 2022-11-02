@@ -27,10 +27,10 @@ function PokemonDetailsOverlay(props) {
             <Card.Title>
               {capitalizeFirstLetter(props.pokedata.name)}
             </Card.Title>
-            {/*  <Card.Text>This is a Pokemon</Card.Text> */}
+            {/*  <Card.Text>This is a Pokemon</Card.Text> 
             <Button variant="primary">
               {CommonConstants.MORE_DETAILS_BTN}
-            </Button>
+            </Button>*/}
           </Card.Body>
         </Card>
       }
