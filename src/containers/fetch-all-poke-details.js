@@ -1,11 +1,11 @@
-import { getPokeDataOk } from "../redux/action";
+import { getAllPokeDataOk } from "../redux/action";
 import { useDispatch } from "react-redux";
 import PokemonListPage from "../components/pokemon-list-page";
-function FetchPokeDetails() {
+function FetchAllPokeDetails() {
   const dispatch = useDispatch();
   //console.log("Before dispatch()");
-  dispatch(getPokeDataOk({}));
+  dispatch(getAllPokeDataOk({}));
   return <PokemonListPage />;
 }
 
-export default FetchPokeDetails;
+export default FetchAllPokeDetails;

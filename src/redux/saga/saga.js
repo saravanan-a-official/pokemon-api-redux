@@ -1,19 +1,32 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest, all } from "redux-saga/effects";
 import * as CommonConstants from "../../common/commonConstants";
 import * as api from "../../api/pokeDetails";
 
-function* formDataSaga() {
-  //console.log("inside formDataSaga");
-  yield takeLatest(CommonConstants.LOAD_POKE_DETAILS, pushDataToStore);
+function* getPokeDataWatcher() {
+  yield all([
+    takeLatest(
+      CommonConstants.LOAD_SINGLE_POKE_DETAIL,
+      pushSinglePokeDataToStore
+    ),
+    takeLatest(CommonConstants.LOAD_ALL_POKE_DETAILS, pushAllPokeDataToStore),
+  ]);
 }
 
-function* pushDataToStore(action) {
-  //console.log("inside pushDataToStore");
-  const pokeDetails = yield call(api.getPokeDetails, "");
+function* pushAllPokeDataToStore(action) {
+  const pokeDetails = yield call(api.getAllPokeDetails, "");
   yield put({
-    type: CommonConstants.GET_POKE_DATA_OK,
+    type: CommonConstants.GET_ALL_POKE_DATA_OK,
     payload: pokeDetails.data.results,
   });
 }
 
-export default formDataSaga;
+function* pushSinglePokeDataToStore(action) {
+  const pokeDetails = yield call(api.getSinglePokeDetails, "");
+  console.log(pokeDetails.data);
+  yield put({
+    type: CommonConstants.GET_SINGLE_POKE_DATA_OK,
+    payload: pokeDetails.data,
+  });
+}
+
+export default getPokeDataWatcher;

@@ -4,26 +4,22 @@ const initialState = CommonConstants.INITIAL_STATE;
 
 const reducer = (
   state = initialState,
-  action = { type: CommonConstants.LOAD_POKE_DETAILS, pokeData: {} }
+  action = { type: CommonConstants.LOAD_ALL_POKE_DETAILS, pokeData: {} }
 ) => {
-  //console.log("-----------------------------------------");
-  //console.log("action.type ::: " + JSON.stringify(action));
   switch (action.type) {
-    case CommonConstants.LOAD_POKE_DETAILS:
-      /* console.log(
-        "LOAD_POKE_DETAILS: action.payload :: " + JSON.stringify(action.payload)
-      ); */
+    case CommonConstants.LOAD_ALL_POKE_DETAILS:
       return { ...state, action };
-    case CommonConstants.GET_POKE_DATA_OK:
-      /* console.log(
-        "GET_POKE_DATA_OK: action.payload :: " + JSON.stringify(action.payload)
-      ); */
-      console.log(
-        "GET_POKE_DATA_OK: action.payload :: " + action.payload.length
-      );
+    case CommonConstants.GET_ALL_POKE_DATA_OK:
+      console.log("CommonConstants.GET_ALL_POKE_DATA_OK");
+      console.log(state);
+      return { ...state, action };
+    case CommonConstants.LOAD_SINGLE_POKE_DETAIL:
+      return { ...state, action };
+    case CommonConstants.GET_SINGLE_POKE_DATA_OK:
+      console.log("CommonConstants.GET_SINGLE_POKE_DATA_OK");
+      console.log(state);
       return { ...state, action };
     default:
-      //console.log("default state: " + JSON.stringify(state));
       return state;
   }
 };
