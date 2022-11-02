@@ -2,7 +2,8 @@ import { useSelector } from "react-redux";
 
 import PokemonListPagination from "./pokemon-list-pagination";
 import PokemonDetailsOverlay from "./pokemon-details-overlay";
-
+import SpinnerComponent from "./SpinnerComponent";
+import "bootstrap/dist/css/bootstrap.min.css";
 //Returns Pokemon data as a Figure HTML
 function iteratePokemonData(pokemonListData) {
   return pokemonListData.action.payload.map((pokeData, id) => {
@@ -24,7 +25,9 @@ function PokemonListPage() {
       {pokemonListData.action.payload ? (
         PaginatePokemonFigureList(pokemonListData)
       ) : (
-        <h1>Loading Pokemon data.....</h1>
+        <h1>
+          <SpinnerComponent text="Fetching Pokemon data....." />
+        </h1>
       )}
     </div>
   );
