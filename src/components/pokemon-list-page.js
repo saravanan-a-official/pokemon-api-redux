@@ -18,7 +18,6 @@ function iteratePokemonData(pokemonListData) {
 //Display pokemon as list inside pagination
 function PokemonListPage() {
   const pokemonListData = useSelector((state) => state);
-  //console.log("Inside PokemonListPage " + JSON.stringify(pokemonListData));
   return (
     <div className="App">
       <h1>Pokemon API</h1>

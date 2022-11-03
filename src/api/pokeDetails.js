@@ -8,6 +8,6 @@ export function getAllPokeDetails() {
 
 export function getSinglePokeDetails() {
   const pokeId = window.sessionStorage.getItem("pokeId");
-  //console.log("pokeId : " + pokeId);
+
   return axios.get("/pokemon-species/" + pokeId, {});
 }

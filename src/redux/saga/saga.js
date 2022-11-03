@@ -22,8 +22,6 @@ function* pushAllPokeDataToStore(action) {
 
 function* pushSinglePokeDataToStore(action) {
   const pokeDetails = yield call(api.getSinglePokeDetails, "");
-  //("pushSinglePokeDataToStore");
-  //console.log(pokeDetails.data);
   yield put({
     type: CommonConstants.GET_SINGLE_POKE_DATA_OK,
     payload: pokeDetails.data,

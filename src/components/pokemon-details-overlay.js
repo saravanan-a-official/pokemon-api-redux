@@ -8,7 +8,6 @@ import * as CommonConstants from "../common/commonConstants";
 
 function PokemonDetailsOverlay(props) {
   const triggerDispatch = (event) => {
-    //console.log("event passed :" + event);
     window.sessionStorage.setItem("pokeId", +event + 1);
   };
   return (

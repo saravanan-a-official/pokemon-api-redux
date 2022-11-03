@@ -5,8 +5,6 @@ import * as CommonConstants from "../common/commonConstants";
 import SpinnerComponent from "./SpinnerComponent";
 function PokemonDetails() {
   const pokemonData = useSelector((state) => state);
-  //console.log(pokemonData);
-  //console.log(pokemonData.action.payload);
   return (
     <div className="App">
       <h1>Pokemon Details page</h1>
