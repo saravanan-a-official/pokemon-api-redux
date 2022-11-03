@@ -7,3 +7,7 @@ ol {
   display: flex;
   justify-content: center
 }
+
+.cell-background {
+  background-color: rgba(226, 216, 216, 0.05);
+}

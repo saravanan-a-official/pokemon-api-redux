@@ -17,7 +17,7 @@ function PokemonListPage() {
   const pokemonListData = useSelector((state) => state);
   return (
     <div className="App">
-      <h1>Pokemon API</h1>
+      <h1>Pokémon API</h1>
       {pokemonListData.action.payload ? (
         PaginatePokemonFigureList(pokemonListData)
       ) : (

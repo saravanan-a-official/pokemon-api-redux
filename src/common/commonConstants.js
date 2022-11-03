@@ -16,6 +16,14 @@ export const OVERLAY_SHOW_DELAY = 250;
 export const OVERLAY_HIDE_DELAY = 500;
 export const INITIAL_STATE = {};
 export function capitalizeFirstLetter(word) {
+  if (word.includes("-")) {
+    let capitalizedWord = "";
+    word.split("-").forEach((word) => {
+      capitalizedWord +=
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + " ";
+    });
+    return capitalizedWord;
+  }
   return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
@@ -29,4 +37,24 @@ export function returnArrayAsString(arrayToBeConverted) {
 
 export function boldText(str) {
   return <b>{str}</b>;
+}
+
+export function formatGenerationText(generationCode) {
+  switch (generationCode) {
+    case "generation-i":
+      return "Generation 1";
+    case "generation-ii":
+      return "Generation 2";
+    case "generation-iii":
+      return "Generation 3";
+    case "generation-iv":
+      return "Generation 4";
+    case "generation-v":
+      return "Generation 5";
+    case "generation-vi":
+      return "Generation 6";
+
+    default:
+      return "data not available!";
+  }
 }
