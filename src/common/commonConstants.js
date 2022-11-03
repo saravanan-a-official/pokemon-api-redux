@@ -12,7 +12,21 @@ export const LOAD_SINGLE_POKE_DETAIL = "LOAD_SINGLE_POKE_DETAIL";
 export const GET_ALL_POKE_DATA_OK = "GET_ALL_POKE_DATA_OK";
 export const GET_SINGLE_POKE_DATA_OK = "GET_SINGLE_POKE_DATA_OK";
 export const MORE_DETAILS_BTN = "More Details";
+export const OVERLAY_SHOW_DELAY = 250;
+export const OVERLAY_HIDE_DELAY = 500;
 export const INITIAL_STATE = {};
 export function capitalizeFirstLetter(word) {
   return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
+export function returnArrayAsString(arrayToBeConverted) {
+  let convertedString = "";
+  arrayToBeConverted.forEach((element) => {
+    convertedString += capitalizeFirstLetter(element.name) + ", ";
+  });
+  return convertedString;
+}
+
+export function boldText(str) {
+  return <b>{str}</b>;
 }

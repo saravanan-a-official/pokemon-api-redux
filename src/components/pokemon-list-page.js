@@ -4,14 +4,11 @@ import PokemonListPagination from "./pokemon-list-pagination";
 import PokemonDetailsOverlay from "./pokemon-details-overlay";
 import SpinnerComponent from "./SpinnerComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 //Returns Pokemon data as a Figure HTML
 function iteratePokemonData(pokemonListData) {
   return pokemonListData.action.payload.map((pokeData, id) => {
-    return (
-      <>
-        <PokemonDetailsOverlay pokedata={pokeData} id={id} />
-      </>
-    );
+    return <PokemonDetailsOverlay pokedata={pokeData} id={id} />;
   });
 }
 
