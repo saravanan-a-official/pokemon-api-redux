@@ -10,59 +10,33 @@ function PokemonDetailsOverlay(props) {
   const triggerDispatch = (event) => {
     window.sessionStorage.setItem("pokeId", +event + 1);
   };
-  return (
-    <OverlayTrigger
-      key={props.id}
-      placement="right"
-      delay={{
-        show: CommonConstants.OVERLAY_SHOW_DELAY,
-        hide: CommonConstants.OVERLAY_HIDE_DELAY,
-      }}
-      overlay={
-        <Card style={{ width: "10rem" }} key={props.id}>
-          <Card.Img
-            variant="top"
-            src={
-              CommonConstants.POKE_IMG_URL +
-              (+props.id + 1) +
-              CommonConstants.POKE_IMG_EXT
-            }
-          />
-          <Card.Body>
-            <Card.Title>
-              {CommonConstants.capitalizeFirstLetter(props.pokedata.name)}
-            </Card.Title>
-            <Card.Text>This is a Pokemon</Card.Text>
-            <Button variant="primary">
-              {CommonConstants.MORE_DETAILS_BTN}
-            </Button>
-            *
-          </Card.Body>
-        </Card>
-      }
+  const pokeBioOVerlay = (
+    <Link
+      key={"link-" + props.id}
+      to="/pokemonDetails/"
+      onClick={() => triggerDispatch(props.id)}
     >
-      <Link
-        key={props.id}
-        to="/pokemonDetails/"
-        onClick={() => triggerDispatch(props.id)}
-      >
-        <Figure key={props.id}>
-          <Figure.Image
-            width={CommonConstants.POKE_IMG_SIZE}
-            height={CommonConstants.POKE_IMG_SIZE}
-            alt={props.pokedata.name}
-            src={
-              CommonConstants.POKE_IMG_URL +
-              (+props.id + 1) +
-              CommonConstants.POKE_IMG_EXT
-            }
-          />
-          <Figure.Caption>
-            {CommonConstants.capitalizeFirstLetter(props.pokedata.name)}
-          </Figure.Caption>
-        </Figure>
-      </Link>
-    </OverlayTrigger>
+      <Figure key={"figure-" + props.id}>
+        <Figure.Image
+          width={CommonConstants.POKE_IMG_SIZE}
+          height={CommonConstants.POKE_IMG_SIZE}
+          alt={props.pokedata.name}
+          src={
+            CommonConstants.POKE_IMG_URL +
+            (+props.id + 1) +
+            CommonConstants.POKE_IMG_EXT
+          }
+        />
+        <Figure.Caption>
+          {CommonConstants.capitalizeFirstLetter(props.pokedata.name)}
+        </Figure.Caption>
+      </Figure>
+    </Link>
   );
+  if (props.id === 0) {
+    console.log("PokemonDetailsOverlay");
+    console.log(pokeBioOVerlay);
+  }
+  return pokeBioOVerlay;
 }
 export default PokemonDetailsOverlay;

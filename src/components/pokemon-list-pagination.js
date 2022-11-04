@@ -46,7 +46,7 @@ class PokemonListPagination extends React.Component {
       1;
 
     let paginatedItems = pokeFigData.slice(sliceStartIndex, sliceEndIndex - 1);
-
+    //console.log(paginatedItems);
     return paginatedItems;
   };
   formPagintionItems = (pokeFigureData) => {
@@ -55,7 +55,7 @@ class PokemonListPagination extends React.Component {
       if (idx % CommonConstants.MAX_ITEMS_PER_PAGE === 0) {
         paginationItems.push(
           <Pagination.Item
-            key={idx}
+            key={"Pagination-" + idx}
             active={
               +idx / CommonConstants.MAX_ITEMS_PER_PAGE ===
               this.state.activePageNum
@@ -74,13 +74,9 @@ class PokemonListPagination extends React.Component {
   render() {
     return (
       <div>
-        <div className="sticky-wrapper">
-          <div className="sticky">
-            <Pagination>
-              {this.formPagintionItems(this.props.pokeFigureData)}
-            </Pagination>
-          </div>
-        </div>
+        <Pagination>
+          {this.formPagintionItems(this.props.pokeFigureData)}
+        </Pagination>
         {this.state.pageData}
       </div>
     );

@@ -12,7 +12,7 @@ function PokemonDetails() {
     <div className="App">
       <h1>Pokémon Details page</h1>
       {pokemonData.action.payload ? (
-        <>
+        <div>
           <Figure key={pokemonData.action.payload.id}>
             <Figure.Image
               width={CommonConstants.POKE_IMG_SIZE}
@@ -101,7 +101,7 @@ function PokemonDetails() {
               <tr></tr>
             </tbody>
           </Table>
-        </>
+        </div>
       ) : (
         <SpinnerComponent text="Loading Pokemon data. please wait" />
       )}
