@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Figure, Table } from "react-bootstrap";
 
 import * as CommonConstants from "../common/commonConstants";
-import SpinnerComponent from "./SpinnerComponent";
+import SpinnerComponent from "./spinner-component";
 
 import "../styles/App.css";
 

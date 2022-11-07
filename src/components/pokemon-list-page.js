@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import PokemonListPagination from "./pokemon-list-pagination";
-import SpinnerComponent from "./SpinnerComponent";
+import SpinnerComponent from "./spinner-component";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Figure,
