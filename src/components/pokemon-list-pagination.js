@@ -20,6 +20,7 @@ class PokemonListPagination extends React.Component {
     });
   }
 
+  //Pagination items onclick change.
   handlePageChange = (pageNum) => {
     let newPageData = this.filterDataForPagination(
       this.props.pokeFigureData,
@@ -31,6 +32,7 @@ class PokemonListPagination extends React.Component {
     });
   };
 
+  //Filters the data for each pages.
   filterDataForPagination = (
     pokeFigData,
     startPage = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM
@@ -49,6 +51,8 @@ class PokemonListPagination extends React.Component {
     //console.log(paginatedItems);
     return paginatedItems;
   };
+
+  //Creates pagination HTML
   formPagintionItems = (pokeFigureData) => {
     let paginationItems = [];
     pokeFigureData.forEach((pokeFigureDatum, idx) => {
@@ -71,6 +75,7 @@ class PokemonListPagination extends React.Component {
     });
     return paginationItems;
   };
+
   render() {
     return (
       <div>

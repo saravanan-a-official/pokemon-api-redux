@@ -3,26 +3,49 @@ import { useSelector } from "react-redux";
 import PokemonListPagination from "./pokemon-list-pagination";
 import SpinnerComponent from "./spinner-component";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  Figure,
-  OverlayTrigger,
-  Card,
-  Button,
-  Tooltip,
-  Popover,
-} from "react-bootstrap";
+import { Figure, OverlayTrigger, Popover } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as CommonConstants from "../common/commonConstants";
+
+//Display pokemon as list inside pagination
+function PokemonListPage() {
+  const pokemonListData = useSelector((state) => state);
+  return (
+    <div className="App">
+      <h1>Pokémon API</h1>
+      {pokemonListData.action.payload ? (
+        PaginatePokemonFigureList(pokemonListData)
+      ) : (
+        <h1>
+          <SpinnerComponent text="Fetching Pokemon data....." />
+        </h1>
+      )}
+    </div>
+  );
+}
+
+//Invokes component and displays Pokemon Figure list with Pagination
+function PaginatePokemonFigureList(pokemonListData) {
+  const pokemonFigureListData = iteratePokemonData(pokemonListData);
+  //console.log(pokemonFigureListData);
+  return (
+    <PokemonListPagination
+      pokeFigureData={pokemonFigureListData}
+    ></PokemonListPagination>
+  );
+}
+
 //Returns Pokemon data as a Figure HTML
 function iteratePokemonData(pokemonListData) {
   return pokemonListData.action.payload.map((pokeData, id) => {
-    //const pokeBio = <PokemonDetailsOverlay pokedata={pokeData} id={id} />;
     const pokeBio = pokemonDetailsOverlay({ pokedata: pokeData, id: id });
 
     return pokeBio;
   });
 }
+
+//Returns overlay html for each pokemon.
 function pokemonDetailsOverlay(pokemonData) {
   const triggerDispatch = (event) => {
     window.sessionStorage.setItem("pokeId", +event + 1);
@@ -70,33 +93,6 @@ function pokemonDetailsOverlay(pokemonData) {
     </OverlayTrigger>
   );
   return pokeBioOVerlay;
-}
-//Display pokemon as list inside pagination
-function PokemonListPage() {
-  const pokemonListData = useSelector((state) => state);
-  return (
-    <div className="App">
-      <h1>Pokémon API</h1>
-      {pokemonListData.action.payload ? (
-        PaginatePokemonFigureList(pokemonListData)
-      ) : (
-        <h1>
-          <SpinnerComponent text="Fetching Pokemon data....." />
-        </h1>
-      )}
-    </div>
-  );
-}
-
-//Invokes component and displays Pokemon Figure list with Pagination
-function PaginatePokemonFigureList(pokemonListData) {
-  const pokemonFigureListData = iteratePokemonData(pokemonListData);
-  //console.log(pokemonFigureListData);
-  return (
-    <PokemonListPagination
-      pokeFigureData={pokemonFigureListData}
-    ></PokemonListPagination>
-  );
 }
 
 export default PokemonListPage;
