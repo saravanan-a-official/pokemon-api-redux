@@ -5,6 +5,8 @@ import axios from "axios";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import App from "./containers/App";
 import "./styles/index.css";
 import * as CommonConstants from "./common/commonConstants";

@@ -3,7 +3,14 @@ import { useSelector } from "react-redux";
 import PokemonListPagination from "./pokemon-list-pagination";
 import SpinnerComponent from "./SpinnerComponent";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Figure, OverlayTrigger, Card, Button } from "react-bootstrap";
+import {
+  Figure,
+  OverlayTrigger,
+  Card,
+  Button,
+  Tooltip,
+  Popover,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as CommonConstants from "../common/commonConstants";
@@ -20,36 +27,24 @@ function pokemonDetailsOverlay(pokemonData) {
   const triggerDispatch = (event) => {
     window.sessionStorage.setItem("pokeId", +event + 1);
   };
+
+  const overlayCardData = (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">
+        {CommonConstants.capitalizeFirstLetter(pokemonData.pokedata.name)}
+      </Popover.Header>
+    </Popover>
+  );
+
   const pokeBioOVerlay = (
     <OverlayTrigger
       key={"overlay-" + pokemonData.id}
       placement="right"
-      delay={{
+      /* delay={{
         show: CommonConstants.OVERLAY_SHOW_DELAY,
         hide: CommonConstants.OVERLAY_HIDE_DELAY,
-      }}
-      overlay={
-        <Card style={{ width: "10rem" }} key={"card-" + pokemonData.id}>
-          <Card.Img
-            key={"cardimg-" + pokemonData.id}
-            variant="top"
-            src={
-              CommonConstants.POKE_IMG_URL +
-              (+pokemonData.id + 1) +
-              CommonConstants.POKE_IMG_EXT
-            }
-          />
-          <Card.Body key={"cardbody-" + pokemonData.id}>
-            <Card.Title key={"cardtitle-" + pokemonData.id}>
-              {CommonConstants.capitalizeFirstLetter(pokemonData.pokedata.name)}
-            </Card.Title>
-            {/*  <Card.Text>This is a Pokemon</Card.Text>
-            <Button variant="primary">
-              {CommonConstants.MORE_DETAILS_BTN}
-            </Button> */}
-          </Card.Body>
-        </Card>
-      }
+      }} */
+      overlay={overlayCardData}
     >
       <Link
         key={"link-" + pokemonData.id}

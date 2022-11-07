@@ -7,7 +7,10 @@ export function getAllPokeDetails() {
 }
 
 export function getSinglePokeDetails() {
-  const pokeId = window.sessionStorage.getItem("pokeId");
-
+  let pokeId = window.sessionStorage.getItem("pokeId");
+  if (pokeId === "" || pokeId === null) {
+    pokeId = 1;
+    console.log("Data not available in session. Hence getting default data");
+  }
   return axios.get("/pokemon-species/" + pokeId, {});
 }
