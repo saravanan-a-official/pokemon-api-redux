@@ -8,7 +8,7 @@ function PokemonListPage() {
   const pokemonListData = useSelector((state) => state);
 
   return (
-    <>
+    <div className="App">
       {pokemonListData.action.payload !== undefined ? (
         <PokemonListPagination
           pokeFigureData={pokemonListData.action.payload}
@@ -18,7 +18,7 @@ function PokemonListPage() {
           <SpinnerComponent text="Fetching Pokemon data....." />
         </h1>
       )}
-    </>
+    </div>
   );
 }
 

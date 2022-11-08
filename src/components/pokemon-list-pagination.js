@@ -15,6 +15,10 @@ class PokemonListPagination extends React.Component {
   }
 
   componentDidMount() {
+    let activePageNum = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM;
+    if (window.sessionStorage.getItem("activePageNum")) {
+      activePageNum = window.sessionStorage.getItem("activePageNum");
+    }
     this.setState({
       pageData: this.getDataForCurrentPage(),
       allPokeFigureData: this.props.pokeFigureData,
@@ -69,6 +73,7 @@ class PokemonListPagination extends React.Component {
   pokemonDetailsOverlay(pokemonData) {
     const triggerDispatch = (event) => {
       window.sessionStorage.setItem("pokeId", +event + 1);
+      window.sessionStorage.setItem("activePageNum", +this.state.activePageNum);
     };
 
     const overlayCardData = (
@@ -197,7 +202,7 @@ class PokemonListPagination extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <>
         <h1>Pokémon API</h1>
         <input
           type="text"
@@ -206,7 +211,7 @@ class PokemonListPagination extends React.Component {
           onChange={(event) => this.onChangeInputTextHandler(event)}
         />
         {this.paginatePokemonFigureList()}
-      </div>
+      </>
     );
   }
 }
