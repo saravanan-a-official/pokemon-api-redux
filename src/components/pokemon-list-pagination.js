@@ -9,16 +9,15 @@ class PokemonListPagination extends React.Component {
     this.state = {
       allPokeFigureData: [],
       pageData: [],
+      searchText: "",
       activePageNum: CommonConstants.DEFAULT_ACTIVE_PAGE_NUM,
     };
   }
 
   componentDidMount() {
-    const allPokeFigureData = this.iteratePokemonData(
-      this.props.pokeFigureData
-    );
-    const pageData = this.filterDataForPagination(
-      this.iteratePokemonData(this.props.pokeFigureData),
+    const allPokeFigureData = this.props.pokeFigureData;
+    const pageData = this.sliceDataForPagination(
+      allPokeFigureData,
       this.state.activePageNum
     );
     this.setState({
@@ -28,26 +27,32 @@ class PokemonListPagination extends React.Component {
   }
 
   //Invokes component and displays Pokemon Figure list with Pagination
+  /**
+   * 1. Slice the data for the particular page
+   * 2. Filter the data based on search box text
+   * 3. Form poke figure data
+   * 4. set it in state
+   */
   PaginatePokemonFigureList(pokemonListData) {
-    const pokemonFigureListData = this.iteratePokemonData(pokemonListData);
+    //add method to filter data based on search text.
 
     return (
-      //RENDER METHOD  of pokemon list pagination
       <div>
         <Pagination>
-          {this.formPagintionItems(pokemonFigureListData)}
+          {this.formPagintionItems(this.state.allPokeFigureData)}
         </Pagination>
-        {this.state.pageData}
+        {this.iteratePokemonData(this.state.pageData)}
       </div>
     );
   }
 
   //Returns Pokemon data as a Figure HTML
   iteratePokemonData(pokemonListData) {
-    return pokemonListData.action.payload.map((pokeData, id) => {
+    return pokemonListData.map((pokeData, id) => {
       const pokeBio = this.pokemonDetailsOverlay({
         pokedata: pokeData,
-        id: id,
+        id:
+          +this.state.activePageNum * CommonConstants.MAX_ITEMS_PER_PAGE + +id,
       });
 
       return pokeBio;
@@ -106,7 +111,7 @@ class PokemonListPagination extends React.Component {
 
   //Pagination items onclick change.
   handlePageChange = (pageNum) => {
-    let newPageData = this.filterDataForPagination(
+    let newPageData = this.sliceDataForPagination(
       this.state.allPokeFigureData,
       pageNum
     );
@@ -118,7 +123,7 @@ class PokemonListPagination extends React.Component {
   };
 
   //Filters the data for each pages.
-  filterDataForPagination = (
+  sliceDataForPagination = (
     pokeFigData,
     startPage = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM
   ) => {
@@ -132,10 +137,22 @@ class PokemonListPagination extends React.Component {
       CommonConstants.MAX_ITEMS_PER_PAGE +
       1;
 
-    let paginatedItems = pokeFigData.slice(sliceStartIndex, sliceEndIndex - 1);
+    const slicedPokeData = pokeFigData.slice(
+      sliceStartIndex,
+      sliceEndIndex - 1
+    );
+    //const searchSlicedPokeData = this.searchPokeinSlicedData(slicedPokeData);
 
-    return paginatedItems;
+    return slicedPokeData;
   };
+
+  //This method is used to filter poke data from search box
+  searchPokeinSlicedData(slicedPokeData) {
+    let finalPokeData = slicedPokeData.map((currentData) => {
+      return;
+    });
+    return finalPokeData;
+  }
 
   //Creates pagination HTML
   formPagintionItems = (pokeFigureData) => {
@@ -161,12 +178,21 @@ class PokemonListPagination extends React.Component {
     return paginationItems;
   };
 
+  onChangeInputTextHandler(event) {
+    this.setState({ searchText: event.target.value });
+  }
+
   render() {
-    const allPokeData = this.props.pokeFigureData;
     return (
       <div className="App">
         <h1>Pokémon API</h1>
-        {this.PaginatePokemonFigureList(allPokeData)}
+        <input
+          type="text"
+          placeholder="Search pokemon"
+          value={this.state.searchText}
+          onChange={(event) => this.onChangeInputTextHandler(event)}
+        />
+        {this.PaginatePokemonFigureList(this.state.pageData)}
       </div>
     );
   }

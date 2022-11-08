@@ -11,7 +11,7 @@ function PokemonListPage() {
     <>
       {pokemonListData.action.payload !== undefined ? (
         <PokemonListPagination
-          pokeFigureData={pokemonListData}
+          pokeFigureData={pokemonListData.action.payload}
         ></PokemonListPagination>
       ) : (
         <h1>
