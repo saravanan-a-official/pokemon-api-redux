@@ -15,15 +15,20 @@ class PokemonListPagination extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      pageData: this.getDataForCurrentPage(),
+      allPokeFigureData: this.props.pokeFigureData,
+    });
+  }
+
+  getDataForCurrentPage() {
     const allPokeFigureData = this.props.pokeFigureData;
     const pageData = this.sliceDataForPagination(
       allPokeFigureData,
       this.state.activePageNum
     );
-    this.setState({
-      pageData: pageData,
-      allPokeFigureData: allPokeFigureData,
-    });
+
+    return pageData;
   }
 
   //Invokes component and displays Pokemon Figure list with Pagination
@@ -33,9 +38,8 @@ class PokemonListPagination extends React.Component {
    * 3. Form poke figure data
    * 4. set it in state
    */
-  PaginatePokemonFigureList(pokemonListData) {
+  paginatePokemonFigureList() {
     //add method to filter data based on search text.
-
     return (
       <div>
         <Pagination>
@@ -45,14 +49,16 @@ class PokemonListPagination extends React.Component {
       </div>
     );
   }
-
+  findPokedexId(stringData) {
+    let splitData = stringData.split("/");
+    return splitData[6];
+  }
   //Returns Pokemon data as a Figure HTML
   iteratePokemonData(pokemonListData) {
     return pokemonListData.map((pokeData, id) => {
       const pokeBio = this.pokemonDetailsOverlay({
         pokedata: pokeData,
-        id:
-          +this.state.activePageNum * CommonConstants.MAX_ITEMS_PER_PAGE + +id,
+        id: this.findPokedexId(pokeData.url) - 1,
       });
 
       return pokeBio;
@@ -141,16 +147,20 @@ class PokemonListPagination extends React.Component {
       sliceStartIndex,
       sliceEndIndex - 1
     );
-    //const searchSlicedPokeData = this.searchPokeinSlicedData(slicedPokeData);
 
     return slicedPokeData;
   };
 
   //This method is used to filter poke data from search box
-  searchPokeinSlicedData(slicedPokeData) {
-    let finalPokeData = slicedPokeData.map((currentData) => {
-      return;
-    });
+  searchPokeinPageData(searchString) {
+    let finalPokeData = this.getDataForCurrentPage();
+    if (searchString !== "") {
+      finalPokeData = finalPokeData.filter((currentData) => {
+        return currentData.name
+          .toLowerCase()
+          .includes(searchString.toLowerCase());
+      });
+    }
     return finalPokeData;
   }
 
@@ -180,6 +190,9 @@ class PokemonListPagination extends React.Component {
 
   onChangeInputTextHandler(event) {
     this.setState({ searchText: event.target.value });
+    let searchPagePokeData = this.state.pageData;
+    searchPagePokeData = this.searchPokeinPageData(event.target.value);
+    this.setState({ pageData: searchPagePokeData });
   }
 
   render() {
@@ -192,7 +205,7 @@ class PokemonListPagination extends React.Component {
           value={this.state.searchText}
           onChange={(event) => this.onChangeInputTextHandler(event)}
         />
-        {this.PaginatePokemonFigureList(this.state.pageData)}
+        {this.paginatePokemonFigureList()}
       </div>
     );
   }
