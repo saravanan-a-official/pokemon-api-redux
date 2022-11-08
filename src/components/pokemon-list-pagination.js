@@ -106,12 +106,11 @@ class PokemonListPagination extends React.Component {
 
   //Pagination items onclick change.
   handlePageChange = (pageNum) => {
-    //console.log("this.state.allPokeFigureData", this.state.allPokeFigureData);
     let newPageData = this.filterDataForPagination(
       this.state.allPokeFigureData,
       pageNum
     );
-    //console.log("newPageData", newPageData);
+
     this.setState({
       pageData: newPageData,
       activePageNum: pageNum,
@@ -132,9 +131,9 @@ class PokemonListPagination extends React.Component {
         CommonConstants.MAX_ITEMS_PER_PAGE +
       CommonConstants.MAX_ITEMS_PER_PAGE +
       1;
-    //console.log("pokeFigData", pokeFigData);
+
     let paginatedItems = pokeFigData.slice(sliceStartIndex, sliceEndIndex - 1);
-    //console.log(paginatedItems);
+
     return paginatedItems;
   };
 
