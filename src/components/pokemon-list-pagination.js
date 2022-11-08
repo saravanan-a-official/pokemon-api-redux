@@ -7,9 +7,24 @@ class PokemonListPagination extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      allPokeFigureData: [],
       pageData: [],
       activePageNum: CommonConstants.DEFAULT_ACTIVE_PAGE_NUM,
     };
+  }
+
+  componentDidMount() {
+    const allPokeFigureData = this.iteratePokemonData(
+      this.props.pokeFigureData
+    );
+    const pageData = this.filterDataForPagination(
+      this.iteratePokemonData(this.props.pokeFigureData),
+      this.state.activePageNum
+    );
+    this.setState({
+      pageData: pageData,
+      allPokeFigureData: allPokeFigureData,
+    });
   }
 
   //Invokes component and displays Pokemon Figure list with Pagination
@@ -89,21 +104,14 @@ class PokemonListPagination extends React.Component {
     return pokeBioOVerlay;
   }
 
-  componentDidMount() {
-    this.setState({
-      pageData: this.filterDataForPagination(
-        this.iteratePokemonData(this.props.pokeFigureData),
-        this.state.activePageNum
-      ),
-    });
-  }
-
   //Pagination items onclick change.
   handlePageChange = (pageNum) => {
+    //console.log("this.state.allPokeFigureData", this.state.allPokeFigureData);
     let newPageData = this.filterDataForPagination(
-      this.props.pokeFigureData.action.payload,
+      this.state.allPokeFigureData,
       pageNum
     );
+    //console.log("newPageData", newPageData);
     this.setState({
       pageData: newPageData,
       activePageNum: pageNum,
@@ -124,7 +132,7 @@ class PokemonListPagination extends React.Component {
         CommonConstants.MAX_ITEMS_PER_PAGE +
       CommonConstants.MAX_ITEMS_PER_PAGE +
       1;
-    console.log("pokeFigData", pokeFigData);
+    //console.log("pokeFigData", pokeFigData);
     let paginatedItems = pokeFigData.slice(sliceStartIndex, sliceEndIndex - 1);
     //console.log(paginatedItems);
     return paginatedItems;
