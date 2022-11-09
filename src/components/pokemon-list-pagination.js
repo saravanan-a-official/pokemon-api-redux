@@ -152,7 +152,6 @@ class PokemonListPagination extends React.Component {
         CommonConstants.MAX_ITEMS_PER_PAGE +
       CommonConstants.MAX_ITEMS_PER_PAGE +
       1;
-
     const slicedPokeData = pokeFigData.slice(
       sliceStartIndex,
       sliceEndIndex - 1

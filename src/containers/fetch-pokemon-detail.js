@@ -1,11 +1,12 @@
 import { getSinglePokeDetail } from "../redux/action";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import PokemonDetails from "../components/pokemon-details";
+import { useEffect } from "react";
 function FetchPokemonDetail() {
   const dispatch = useDispatch();
-
-  dispatch(getSinglePokeDetail({}));
+  useEffect(() => {
+    dispatch(getSinglePokeDetail({}));
+  });
 
   return <PokemonDetails />;
 }

@@ -1,9 +1,13 @@
 import { getAllPokeDataOk } from "../redux/action";
 import { useDispatch } from "react-redux";
 import PokemonListPage from "../components/pokemon-list-page";
+import { useEffect } from "react";
 function FetchAllPokeDetails() {
   const dispatch = useDispatch();
-  dispatch(getAllPokeDataOk({}));
+  useEffect(() => {
+    dispatch(getAllPokeDataOk({}));
+  });
+
   return <PokemonListPage />;
 }
 

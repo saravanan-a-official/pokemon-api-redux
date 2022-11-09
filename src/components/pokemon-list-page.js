@@ -6,10 +6,10 @@ import SpinnerComponent from "./spinner-component";
 //Display pokemon as list inside pagination
 function PokemonListPage() {
   const pokemonListData = useSelector((state) => state);
-
+  //const pokemonListData = {};
   return (
     <div className="App">
-      {pokemonListData.action.payload !== undefined ? (
+      {pokemonListData.action?.payload?.length > 0 ? (
         <PokemonListPagination
           pokeFigureData={pokemonListData.action.payload}
         ></PokemonListPagination>
