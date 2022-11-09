@@ -5,20 +5,20 @@ import { Figure, OverlayTrigger, Popover } from "react-bootstrap";
 import { Link } from "react-router-dom";
 class PokemonListPagination extends React.Component {
   constructor(props) {
+    let activePageNum = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM;
+    if (window.sessionStorage.getItem("activePageNum")) {
+      activePageNum = window.sessionStorage.getItem("activePageNum");
+    }
     super(props);
     this.state = {
       allPokeFigureData: [],
       pageData: [],
       searchText: "",
-      activePageNum: CommonConstants.DEFAULT_ACTIVE_PAGE_NUM,
+      activePageNum: parseInt(activePageNum),
     };
   }
 
   componentDidMount() {
-    let activePageNum = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM;
-    if (window.sessionStorage.getItem("activePageNum")) {
-      activePageNum = window.sessionStorage.getItem("activePageNum");
-    }
     this.setState({
       pageData: this.getDataForCurrentPage(),
       allPokeFigureData: this.props.pokeFigureData,
@@ -43,6 +43,7 @@ class PokemonListPagination extends React.Component {
    * 4. set it in state
    */
   paginatePokemonFigureList() {
+    ("paginatePokemonFigureList()");
     //add method to filter data based on search text.
     return (
       <div>
@@ -122,6 +123,10 @@ class PokemonListPagination extends React.Component {
 
   //Pagination items onclick change.
   handlePageChange = (pageNum) => {
+    window.sessionStorage.setItem("activePageNum", +pageNum);
+    this.setState({
+      activePageNum: pageNum,
+    });
     let newPageData = this.sliceDataForPagination(
       this.state.allPokeFigureData,
       pageNum
@@ -136,7 +141,7 @@ class PokemonListPagination extends React.Component {
   //Filters the data for each pages.
   sliceDataForPagination = (
     pokeFigData,
-    startPage = CommonConstants.DEFAULT_ACTIVE_PAGE_NUM
+    startPage = this.state.activePageNum
   ) => {
     const sliceStartIndex =
       (+startPage - CommonConstants.DEFAULT_ACTIVE_PAGE_NUM) *
