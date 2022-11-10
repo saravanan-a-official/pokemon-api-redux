@@ -58,3 +58,8 @@ export function formatGenerationText(generationCode) {
       return "data not available!";
   }
 }
+
+export function findPokedexId(stringData) {
+  let splitData = stringData.split("/");
+  return splitData[6];
+}
